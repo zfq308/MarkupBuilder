@@ -24,30 +24,30 @@ import java.util.List;
 
 abstract class AElement implements Html5Builder.Element, Builder {
     private String tag;
-    private boolean selfTerminating;
+    private boolean isSelfTerminating;
     protected String id;
     protected List<String> classes;
-    protected List<AElement> elements;
+    protected List<Builder> children;
 
-    AElement(String tag) {
-        this.tag = tag;
+    AElement(Tag tag) {
+        this.tag = tag.getValue();
+        this.isSelfTerminating = tag.isSelfTerminating();
         this.id = null;
 
-        elements = new ArrayList<>();
+        children = new ArrayList<>();
         classes = new ArrayList<>();
     }
 
-    AElement(String tag, boolean selfTerminating) {
-        this.tag = tag;
-        this.selfTerminating = selfTerminating;
+    protected void addChild(Builder child) {
+        children.add(child);
     }
 
     public String build() {
         StringBuilder sb = new StringBuilder();
         sb.append(makeStartTag());
-        elements.forEach(e -> sb.append(e.build()));
+        children.forEach(child -> sb.append(child.build()));
 
-        if (!selfTerminating)
+        if (!isSelfTerminating)
             sb.append(makeEndTag());
 
         return sb.toString();
@@ -66,10 +66,10 @@ abstract class AElement implements Html5Builder.Element, Builder {
         return "<" + tag
                 + (id != null ? " id=\" + id + \"" : "")
                 + (classes.isEmpty() ? "" : " class=\"" + classesString + "\"")
-                + (selfTerminating ? "/>" : ">");
+                + (isSelfTerminating ? "/>" : ">");
     }
 
     private String makeEndTag() {
-        return "</" + tag + ">";
+        return "</" + tag + ">" + System.lineSeparator();
     }
 }

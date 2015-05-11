@@ -22,30 +22,31 @@ along with MarkupBuilder.  If not, see <http://www.gnu.org/licenses/>.
 public class Literal extends AElement implements Html5Builder.LiteralElement {
     private String content;
 
-    Literal(String tag) {
+    Literal(Tag tag) {
         super(tag);
     }
 
-    Literal(String tag, Boolean selfTerminating) {
-        super(tag, selfTerminating);
+    Literal() {
+        super(Tag.NONE);
     }
 
-    void setContent(String content) {
+    Html5Builder.LiteralElement setContent(String content) {
         this.content = content;
+        return this;
     }
 
     @Override
-    public Html5Builder.Element setInlineStyle(InlineStyle style) {
+    public Html5Builder.LiteralElement setInlineStyle(InlineStyle style) {
         return null;
     }
 
     @Override
-    public Html5Builder.Element setId(String id) {
+    public Html5Builder.LiteralElement setId(String id) {
         return null;
     }
 
     @Override
-    public Html5Builder.Element setClass(String className) {
+    public Html5Builder.LiteralElement setClass(String className) {
         return null;
     }
 

@@ -21,11 +21,11 @@ along with MarkupBuilder.  If not, see <http://www.gnu.org/licenses/>.
 public class HtmlBuilder implements Html5Builder {
     private ContainerElement body;
     HtmlBuilder() {
-        body = new Container(Tags.BODY);
+        body = new Container(Tag.BODY);
     }
 
     public String build() {
-        return ((AElement)body).build();
+        return body.build();
     }
 
     @Override

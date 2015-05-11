@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with MarkupBuilder.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-public interface Html5Builder extends Builder {
+public interface Html5Builder extends Builder{
     Head head();
     ContainerElement body();
 
@@ -29,7 +29,7 @@ public interface Html5Builder extends Builder {
         Head addJsReference(String relPath);
     }
 
-    interface Element {
+    interface Element extends Builder {
         Element setInlineStyle(InlineStyle style);
         Element setId(String id);
         Element setClass(String className);
@@ -40,21 +40,30 @@ public interface Html5Builder extends Builder {
         ContainerElement addHeading(String text, HeadingLevel level, String className);
         ContainerElement addHeading(String text, HeadingLevel level, InlineStyle style);
         ContainerElement addHeading(String text, HeadingLevel level, String className, String id);
-        ContainerElement addDiv();
-        ContainerElement addDiv(String className);
-        ContainerElement addDiv(InlineStyle style);
-        ContainerElement addDiv(String className, String id);
-        ContainerElement addSpan();
-        ContainerElement addSpan(String className);
-        ContainerElement addSpan(InlineStyle style);
-        ContainerElement addSpan(String className, String id);
+
+        ContainerElement newDiv();
+        ContainerElement newDiv(String className);
+        ContainerElement newDiv(InlineStyle style);
+        ContainerElement newDiv(String className, String id);
+
+        ContainerElement newSpan();
+        ContainerElement newSpan(String className);
+        ContainerElement newSpan(InlineStyle style);
+        ContainerElement newSpan(String className, String id);
+
         ContainerElement addBreak();
         ContainerElement addBreak(String className);
         ContainerElement addBreak(InlineStyle style);
-        ContainerElement addParagraph(String text);
-        ContainerElement addParagraph(String text, String className);
-        ContainerElement addParagraph(String text, InlineStyle style);
-        ContainerElement addParagraph(String text, String className, String id);
+
+        ContainerElement newParagraph(String text);
+        ContainerElement newParagraph(String text, String className);
+        ContainerElement newParagraph(String text, InlineStyle style);
+        ContainerElement newParagraph(String text, String className, String id);
+
+        LiteralElement newAnchor(String text);
+        LiteralElement newAnchor(String text, String className);
+        LiteralElement newAnchor(String text, InlineStyle style);
+        LiteralElement newAnchor(String text, String className, String id);
     }
 
     interface LiteralElement extends Element {

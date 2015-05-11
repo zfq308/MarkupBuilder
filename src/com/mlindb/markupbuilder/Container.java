@@ -20,28 +20,29 @@ along with MarkupBuilder.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 public class Container extends AElement implements Html5Builder.ContainerElement {
-    Container(String tag) {
+    Container(Tag tag) {
         super(tag);
     }
 
-    Container(String tag, Boolean selfTerminating) {
-        super(tag, selfTerminating);
-    }
-    
+    /**
+     *
+     * @param tag
+     * @param className
+     * @param id
+     * @return
+     */
+    private Html5Builder.ContainerElement newContainerElement(Tag tag, String className, String id) {
+        Container c = new Container(tag);
+        this.addChild(c);
 
-    @Override
-    public Html5Builder.Element setInlineStyle(InlineStyle style) {
-        return null;
-    }
+        if (className != null)
+            c.setClass(className);
 
-    @Override
-    public Html5Builder.Element setId(String id) {
-        return null;
-    }
 
-    @Override
-    public Html5Builder.Element setClass(String className) {
-        return null;
+        if (id != null)
+            c.setId(id);
+
+        return c;
     }
 
     @Override
@@ -65,43 +66,43 @@ public class Container extends AElement implements Html5Builder.ContainerElement
     }
 
     @Override
-    public Html5Builder.ContainerElement addDiv() {
-        return new Container("div");
+    public Html5Builder.ContainerElement newDiv() {
+        return newContainerElement(Tag.DIV, null, null);
     }
 
     @Override
-    public Html5Builder.ContainerElement addDiv(String className) {
-        return (Container)new Container("div").setClass(className);
+    public Html5Builder.ContainerElement newDiv(String className) {
+        return newContainerElement(Tag.DIV, className, null);
     }
 
     @Override
-    public Html5Builder.ContainerElement addDiv(InlineStyle style) {
+    public Html5Builder.ContainerElement newDiv(InlineStyle style) {
         return null;
     }
 
     @Override
-    public Html5Builder.ContainerElement addDiv(String className, String id) {
+    public Html5Builder.ContainerElement newDiv(String className, String id) {
+        return newContainerElement(Tag.DIV, className, id);
+    }
+
+    @Override
+    public Html5Builder.ContainerElement newSpan() {
+        return newContainerElement(Tag.SPAN, null, null);
+    }
+
+    @Override
+    public Html5Builder.ContainerElement newSpan(String className) {
+        return newContainerElement(Tag.SPAN, className, null);
+    }
+
+    @Override
+    public Html5Builder.ContainerElement newSpan(InlineStyle style) {
         return null;
     }
 
     @Override
-    public Html5Builder.ContainerElement addSpan() {
-        return null;
-    }
-
-    @Override
-    public Html5Builder.ContainerElement addSpan(String className) {
-        return null;
-    }
-
-    @Override
-    public Html5Builder.ContainerElement addSpan(InlineStyle style) {
-        return null;
-    }
-
-    @Override
-    public Html5Builder.ContainerElement addSpan(String className, String id) {
-        return null;
+    public Html5Builder.ContainerElement newSpan(String className, String id) {
+        return newContainerElement(Tag.SPAN, className, id);
     }
 
     @Override
@@ -120,24 +121,61 @@ public class Container extends AElement implements Html5Builder.ContainerElement
     }
 
     @Override
-    public Html5Builder.ContainerElement addParagraph(String text) {
-        Literal le = new Literal("p");
-        le.setContent(text);
-        return this;
+    public Html5Builder.ContainerElement newParagraph(String text) {
+        Container c = new Container(Tag.P);
+        this.addChild(c);
+
+        c.addChild(new Literal().setContent(text));
+        return c;
     }
 
     @Override
-    public Html5Builder.ContainerElement addParagraph(String text, String className) {
+    public Html5Builder.ContainerElement newParagraph(String text, String className) {
         return null;
     }
 
     @Override
-    public Html5Builder.ContainerElement addParagraph(String text, InlineStyle style) {
+    public Html5Builder.ContainerElement newParagraph(String text, InlineStyle style) {
         return null;
     }
 
     @Override
-    public Html5Builder.ContainerElement addParagraph(String text, String className, String id) {
+    public Html5Builder.ContainerElement newParagraph(String text, String className, String id) {
+        return null;
+    }
+
+    @Override
+    public Html5Builder.LiteralElement newAnchor(String text) {
+        return null;
+    }
+
+    @Override
+    public Html5Builder.LiteralElement newAnchor(String text, String className) {
+        return null;
+    }
+
+    @Override
+    public Html5Builder.LiteralElement newAnchor(String text, InlineStyle style) {
+        return null;
+    }
+
+    @Override
+    public Html5Builder.LiteralElement newAnchor(String text, String className, String id) {
+        return null;
+    }
+
+    @Override
+    public Html5Builder.Element setInlineStyle(InlineStyle style) {
+        return null;
+    }
+
+    @Override
+    public Html5Builder.Element setId(String id) {
+        return null;
+    }
+
+    @Override
+    public Html5Builder.Element setClass(String className) {
         return null;
     }
 }
