@@ -13,9 +13,7 @@ ApiTester/
 #################
 ## Ant
 #################
-
-build/
-dist/
+build.properties
 
 #######################
 ## Windows and Mac crap

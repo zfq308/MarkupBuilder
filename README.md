@@ -11,7 +11,9 @@ Current build is 1.0-SNAPSHOT which means functionality is in no way complete or
 * Add JavaDoc comments to all files, effectively documenting the whole project.
 * Add tests for relevant parts
 * Create fully functional implementation
-* Get Ant to work again
+* Implement some sort of depth counter to elements to allow correct indentation
+* Add overloads for whether tags should be superseded by newline or not
+
 
 **Longer term ToDo's/Roadmap**
 Support for both html4, html5 and xhtml 

@@ -46,22 +46,22 @@ public class Container extends AElement implements Html5Builder.ContainerElement
     }
 
     @Override
-    public Html5Builder.ContainerElement addHeading(String text, HeadingLevel level) {
+    public Html5Builder.LiteralElement addHeading(String text, HeadingLevel level) {
         return null;
     }
 
     @Override
-    public Html5Builder.ContainerElement addHeading(String text, HeadingLevel level, String className) {
+    public Html5Builder.LiteralElement addHeading(String text, HeadingLevel level, String className) {
         return null;
     }
 
     @Override
-    public Html5Builder.ContainerElement addHeading(String text, HeadingLevel level, InlineStyle style) {
+    public Html5Builder.LiteralElement addHeading(String text, HeadingLevel level, InlineStyle style) {
         return null;
     }
 
     @Override
-    public Html5Builder.ContainerElement addHeading(String text, HeadingLevel level, String className, String id) {
+    public Html5Builder.LiteralElement addHeading(String text, HeadingLevel level, String className, String id) {
         return null;
     }
 
@@ -106,17 +106,17 @@ public class Container extends AElement implements Html5Builder.ContainerElement
     }
 
     @Override
-    public Html5Builder.ContainerElement addBreak() {
+    public Html5Builder.LiteralElement addBreak() {
         return null;
     }
 
     @Override
-    public Html5Builder.ContainerElement addBreak(String className) {
+    public Html5Builder.LiteralElement addBreak(String className) {
         return null;
     }
 
     @Override
-    public Html5Builder.ContainerElement addBreak(InlineStyle style) {
+    public Html5Builder.LiteralElement addBreak(InlineStyle style) {
         return null;
     }
 

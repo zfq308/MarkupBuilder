@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InlineStyle {
-    private Map<String, String> values;
+    private final Map<String, String> values;
 
     public InlineStyle() {
         values = new HashMap<>();

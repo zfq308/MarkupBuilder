@@ -19,13 +19,17 @@ You should have received a copy of the GNU General Public License
 along with MarkupBuilder.  If not, see <http://www.gnu.org/licenses/>.
 */
 public class HtmlBuilder implements Html5Builder {
-    private ContainerElement body;
+    private final Head head;
+    private final ContainerElement body;
+
+
     HtmlBuilder() {
+        head = new com.mlindb.markupbuilder.Head();
         body = new Container(Tag.BODY);
     }
 
     public String build() {
-        return body.build();
+        return START_DOCUMENT + head.build() + body.build() + END_DOCUMENT;
     }
 
     @Override

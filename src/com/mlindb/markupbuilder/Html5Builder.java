@@ -20,10 +20,13 @@ along with MarkupBuilder.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 public interface Html5Builder extends Builder{
+    static final String START_DOCUMENT  = "<!DOCTYPE html>" + System.lineSeparator() + "<html>" + System.lineSeparator();
+    static final String END_DOCUMENT    = "</html>";
+
     Head head();
     ContainerElement body();
 
-    interface Head {
+    interface Head  extends Builder {
         Head setTitle(String text);
         Head addCssReference(String relPath);
         Head addJsReference(String relPath);
@@ -36,10 +39,10 @@ public interface Html5Builder extends Builder{
     }
 
     interface ContainerElement extends Element {
-        ContainerElement addHeading(String text, HeadingLevel level);
-        ContainerElement addHeading(String text, HeadingLevel level, String className);
-        ContainerElement addHeading(String text, HeadingLevel level, InlineStyle style);
-        ContainerElement addHeading(String text, HeadingLevel level, String className, String id);
+        LiteralElement addHeading(String text, HeadingLevel level);
+        LiteralElement addHeading(String text, HeadingLevel level, String className);
+        LiteralElement addHeading(String text, HeadingLevel level, InlineStyle style);
+        LiteralElement addHeading(String text, HeadingLevel level, String className, String id);
 
         ContainerElement newDiv();
         ContainerElement newDiv(String className);
@@ -51,9 +54,9 @@ public interface Html5Builder extends Builder{
         ContainerElement newSpan(InlineStyle style);
         ContainerElement newSpan(String className, String id);
 
-        ContainerElement addBreak();
-        ContainerElement addBreak(String className);
-        ContainerElement addBreak(InlineStyle style);
+        LiteralElement addBreak();
+        LiteralElement addBreak(String className);
+        LiteralElement addBreak(InlineStyle style);
 
         ContainerElement newParagraph(String text);
         ContainerElement newParagraph(String text, String className);

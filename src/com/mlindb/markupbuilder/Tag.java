@@ -22,18 +22,19 @@ import java.util.Map;
  * along with MarkupBuilder.  If not, see <http://www.gnu.org/licenses/>.
  */
 public enum Tag {
-    A       ("a", new String[] {"href", "title"}),
+    A       ("a", new String[] {"href", "title"}, false, false),
     BODY    ("body"),
     DIV     ("div"),
-    P       ("p"),
+    P       ("p", false, false),
     BR      ("br"),
     SPAN    ("span"),
     IMG     ("img", new String[] {"src", "alt"}, true),
     NONE    (null);
 
-    private String tag;
-    private Map<String, String> attributes;
-    private boolean isSelfTerminating;
+    private final String tag;
+    private final Map<String, String> attributes;
+    private final boolean selfTerminating;
+    private final boolean linebreakOnStartTag;
 
     /**
      * Initializes the Tag with just a tag name.
@@ -46,11 +47,33 @@ public enum Tag {
     /**
      * Initializes the Tag with a tag name and information on self-termination.
      * @param tag
-     * @param isSelfTerminating
+     * @param selfTerminating
      */
-    Tag(String tag, boolean isSelfTerminating) {
-        this(tag, new String[] {}, isSelfTerminating);
+    Tag(String tag, boolean selfTerminating) {
+        this(tag, new String[] {}, selfTerminating, true);
     }
+
+    /**
+     *
+     * @param tag
+     * @param selfTerminating
+     * @param linebreakOnStartTag
+     */
+    Tag(String tag, boolean selfTerminating, boolean linebreakOnStartTag) {
+        this(tag, new String[] {}, selfTerminating, linebreakOnStartTag);
+    }
+
+    /**
+     *
+     * @param tag
+     * @param attributes
+     * @param selfTerminating
+     */
+    Tag(String tag, String[] attributes, boolean selfTerminating) {
+        this(tag, attributes, selfTerminating, true);
+    }
+
+
 
     /**
      * Initializes the Tag with a tag name it any mandatory attributes.
@@ -58,31 +81,32 @@ public enum Tag {
      * @param attributes
      */
     Tag(String tag, String[] attributes) {
-        this(tag, attributes, false);
+        this(tag, attributes, false, true);
     }
 
     /**
      * Initializes the Tag with a tag name it any mandatory attributes.
-     * @param tag
-     * @param attributes
-     * @param isSelfTerminating
+     * @param tag String representation of an html tag, such as "p"
+     * @param attributes A list if attribute keys. Values will be set to empty strings. These can later be set with addAttribute().
+     * @param selfTerminating Indicates whether the tag is self terminating or not. "img" and "br" are self terminating.
      */
-    Tag(String tag, String[] attributes, boolean isSelfTerminating) {
+    Tag(String tag, String[] attributes, boolean selfTerminating, boolean linebreakOnStartTag) {
         this.attributes = new HashMap<>();
         for (String a : attributes) {
             this.attributes.put(a, "");
         }
 
         this.tag = tag;
-        this.isSelfTerminating = isSelfTerminating;
+        this.selfTerminating = selfTerminating;
+        this.linebreakOnStartTag = linebreakOnStartTag;
     }
 
     /**
      * Method to add additional attributes to the Tag.
      * Manadatory attributes are simply overwritten.
-     * @param key
-     * @param value
-     * @return
+     * @param key The attribute key (e.g "href")
+     * @param value The attribute value (e.g "http://github.com")
+     * @return The current Tag (itself).
      */
     public Tag addAttribute(String key, String value) {
         attributes.put(key, value);
@@ -97,6 +121,7 @@ public enum Tag {
     }
 
     public boolean isSelfTerminating() {
-        return isSelfTerminating;
+        return selfTerminating;
     }
+    public boolean isLinebreakOnStartTag() { return linebreakOnStartTag; }
 }
