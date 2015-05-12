@@ -36,7 +36,7 @@ public class Container extends AElement implements Html5Builder.ContainerElement
         this.addChild(c);
 
         if (className != null)
-            c.setClass(className);
+            c.addClass(className);
 
 
         if (id != null)
@@ -131,51 +131,70 @@ public class Container extends AElement implements Html5Builder.ContainerElement
 
     @Override
     public Html5Builder.ContainerElement newParagraph(String text, String className) {
-        return null;
+        Container c = new Container(Tag.P);
+        this.addChild(c);
+
+        c.addChild(new Literal().setContent(text));
+        c.addClass(className);
+        return c;
     }
 
     @Override
     public Html5Builder.ContainerElement newParagraph(String text, InlineStyle style) {
-        return null;
+        Container c = new Container(Tag.P);
+        this.addChild(c);
+
+        c.addChild(new Literal().setContent(text));
+        c.setInlineStyle(style);
+        return c;
     }
 
     @Override
     public Html5Builder.ContainerElement newParagraph(String text, String className, String id) {
+        Container c = new Container(Tag.P);
+        this.addChild(c);
+
+        c.addChild(new Literal().setContent(text));
+        c.addClass(className);
+        c.setId(id);
+        return c;
+    }
+
+    @Override
+    public Html5Builder.LiteralElement addAnchor(String text) {
         return null;
     }
 
     @Override
-    public Html5Builder.LiteralElement newAnchor(String text) {
+    public Html5Builder.LiteralElement addAnchor(String text, String className) {
         return null;
     }
 
     @Override
-    public Html5Builder.LiteralElement newAnchor(String text, String className) {
+    public Html5Builder.LiteralElement addAnchor(String text, InlineStyle style) {
         return null;
     }
 
     @Override
-    public Html5Builder.LiteralElement newAnchor(String text, InlineStyle style) {
+    public Html5Builder.LiteralElement addAnchor(String text, String className, String id) {
         return null;
     }
 
     @Override
-    public Html5Builder.LiteralElement newAnchor(String text, String className, String id) {
-        return null;
+    public Html5Builder.ContainerElement setId(String id) {
+        super.setId(id);
+        return this;
     }
 
     @Override
-    public Html5Builder.Element setInlineStyle(InlineStyle style) {
-        return null;
+    public Html5Builder.ContainerElement addClass(String classname) {
+        super.addClass(classname);
+        return this;
     }
 
     @Override
-    public Html5Builder.Element setId(String id) {
-        return null;
-    }
-
-    @Override
-    public Html5Builder.Element setClass(String className) {
-        return null;
+    public Html5Builder.ContainerElement setInlineStyle(InlineStyle style) {
+        super.setInlineStyle(style);
+        return this;
     }
 }

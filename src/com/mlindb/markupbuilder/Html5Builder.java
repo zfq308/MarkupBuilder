@@ -35,10 +35,10 @@ public interface Html5Builder extends Builder{
     interface Element extends Builder {
         Element setInlineStyle(InlineStyle style);
         Element setId(String id);
-        Element setClass(String className);
+        Element addClass(String className);
     }
 
-    interface ContainerElement extends Element {
+    interface ContainerElement extends Element{
         LiteralElement addHeading(String text, HeadingLevel level);
         LiteralElement addHeading(String text, HeadingLevel level, String className);
         LiteralElement addHeading(String text, HeadingLevel level, InlineStyle style);
@@ -63,13 +63,13 @@ public interface Html5Builder extends Builder{
         ContainerElement newParagraph(String text, InlineStyle style);
         ContainerElement newParagraph(String text, String className, String id);
 
-        LiteralElement newAnchor(String text);
-        LiteralElement newAnchor(String text, String className);
-        LiteralElement newAnchor(String text, InlineStyle style);
-        LiteralElement newAnchor(String text, String className, String id);
+        LiteralElement addAnchor(String text);
+        LiteralElement addAnchor(String text, String className);
+        LiteralElement addAnchor(String text, InlineStyle style);
+        LiteralElement addAnchor(String text, String className, String id);
     }
 
-    interface LiteralElement extends Element {
+    interface LiteralElement extends Element{
 
     }
 }

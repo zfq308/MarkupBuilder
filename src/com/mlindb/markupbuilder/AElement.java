@@ -23,17 +23,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 abstract class AElement implements Html5Builder.Element {
-    private final String tag;
-    private final boolean isSelfTerminating;
-    private final boolean isLinebreakOnStartTag;
-    protected final String id;
+
+    protected final Tag tag;
+    protected String id;
     protected final List<String> classes;
     protected final List<Builder> children;
 
     AElement(Tag tag) {
-        this.tag = tag.getValue();
-        this.isSelfTerminating = tag.isSelfTerminating();
-        this.isLinebreakOnStartTag = tag.isLinebreakOnStartTag();
+        this.tag = tag;
         this.id = null;
 
         children = new ArrayList<>();
@@ -44,15 +41,49 @@ abstract class AElement implements Html5Builder.Element {
         children.add(child);
     }
 
+    /**
+     * Interface Element implementation
+     * @return
+     */
+    public Html5Builder.Element setId(String id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * Interface Element implementation
+     * @return
+     */
+    public Html5Builder.Element addClass(String classname) {
+        classes.add(classname);
+        return this;
+    }
+
+    /**
+     * Interface Element implementation
+     * @return
+     */
+    public Html5Builder.Element setInlineStyle(InlineStyle style) {
+        return this;
+    }
+
+    /**
+     * Interface Builder implementation
+     * @return
+     */
     public String build() {
         StringBuilder sb = new StringBuilder();
         sb.append(makeStartTag());
         children.forEach(child -> sb.append(child.build()));
 
-        if (!isSelfTerminating)
+        if (!tag.isSelfTerminating())
             sb.append(makeEndTag());
 
         return sb.toString();
+    }
+
+    public String build(String content) {
+        return content;
     }
 
     private String makeStartTag() {
@@ -63,17 +94,17 @@ abstract class AElement implements Html5Builder.Element {
                 sb.append(" ");
                 sb.append(s);
             });
-            classesString = sb.toString();
+            classesString = sb.toString().substring(1);
         }
 
-        return "<" + tag
+        return "<" + tag.getValue()
                 + (id != null ? " id=\" + id + \"" : "")
                 + (classes.isEmpty() ? "" : " class=\"" + classesString + "\"")
-                + (isSelfTerminating ? "/>" : ">")
-                + (isLinebreakOnStartTag ? System.lineSeparator() : "");
+                + (tag.isSelfTerminating() ? "/>" : ">")
+                + (tag.isLinebreakOnStartTag() ? System.lineSeparator() : "");
     }
 
     private String makeEndTag() {
-        return "</" + tag + ">" + System.lineSeparator();
+        return "</" + tag.getValue() + ">" + System.lineSeparator();
     }
 }

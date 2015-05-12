@@ -30,28 +30,18 @@ public class Literal extends AElement implements Html5Builder.LiteralElement {
         super(Tag.NONE);
     }
 
-    Html5Builder.LiteralElement setContent(String content) {
+    private Literal(String content) {
+        super(Tag.NONE);
         this.content = content;
+    }
+
+    Html5Builder.LiteralElement setContent(String content) {
+        addChild(new Literal(content));
         return this;
     }
 
     @Override
-    public Html5Builder.LiteralElement setInlineStyle(InlineStyle style) {
-        return null;
-    }
-
-    @Override
-    public Html5Builder.LiteralElement setId(String id) {
-        return null;
-    }
-
-    @Override
-    public Html5Builder.LiteralElement setClass(String className) {
-        return null;
-    }
-
-    @Override
     public String build() {
-        return content;
+        return super.tag == Tag.NONE ? super.build(content) : super.build();
     }
 }
