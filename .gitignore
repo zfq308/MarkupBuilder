@@ -11,9 +11,9 @@ out/
 ApiTester/
 
 #################
-## Ant
+## Maven
 #################
-build.properties
+target/
 
 #######################
 ## Windows and Mac crap
