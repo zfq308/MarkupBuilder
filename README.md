@@ -16,4 +16,5 @@ Current build is 1.0-SNAPSHOT which means functionality is in no way complete or
 
 
 **Longer term ToDo's/Roadmap**
-Support for both html4, html5 and xhtml 
+* Support for html4, html5 and xhtml
+* Proper documentation
