@@ -1,6 +1,6 @@
 # MarkupBuilder #
 
-Copyright (C) 2015 Magnus Lindberg -- see [COPYING](COPYING)
+Copyright (C) 2015 Magnus Lindberg -- see [COPYING](COPYING) for licence details (GPL)
 
 MarkupBuilder is a java API for creating static html content. It aims to provide a simple and intuitive, yet powerful interface
 with the ability to chain methods together in a way that makes sense.
@@ -16,5 +16,6 @@ Current build is 1.0-SNAPSHOT which means functionality is in no way complete or
 
 
 **Longer term ToDo's/Roadmap**
+* Implement validation
 * Support for html4, html5 and xhtml
 * Proper documentation
