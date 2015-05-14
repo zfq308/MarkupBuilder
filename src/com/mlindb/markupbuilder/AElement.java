@@ -20,7 +20,9 @@ along with MarkupBuilder.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 abstract class AElement implements Html5Builder.Element {
 
@@ -28,13 +30,15 @@ abstract class AElement implements Html5Builder.Element {
     protected String id;
     protected final List<String> classes;
     protected final List<Builder> children;
+    protected final Map<String, String> styles;
 
     AElement(Tag tag) {
         this.tag = tag;
         this.id = null;
 
-        children = new ArrayList<>();
         classes = new ArrayList<>();
+        children = new ArrayList<>();
+        styles = new HashMap<>();
     }
 
     protected void addChild(Builder child) {
@@ -64,6 +68,7 @@ abstract class AElement implements Html5Builder.Element {
      * @return
      */
     public Html5Builder.Element setInlineStyle(InlineStyle style) {
+        styles.putAll(style.getStyles());
         return this;
     }
 
@@ -87,35 +92,54 @@ abstract class AElement implements Html5Builder.Element {
     }
 
     private String makeStartTag() {
-        String classesString = null;
-        if (!classes.isEmpty()) {
-            StringBuilder sb = new StringBuilder();
-            classes.forEach(c -> {
-                sb.append(" ");
-                sb.append(c);
-            });
-            classesString = sb.toString().substring(1);
-        }
-
-        String attributesString = null;
-        if (!tag.getAttributes().isEmpty()) {
-            StringBuilder sb = new StringBuilder();
-            tag.getAttributes().keySet().forEach(ak -> {
-                sb.append(" ");
-                sb.append(ak + "=" + tag.getAttributes().get(ak));
-            });
-            attributesString = sb.toString().substring(1);
-        }
-
         return "<" + tag.getValue()
-                + (id != null ? " id=\" + id + \"" : "")
-                + (classes.isEmpty() ? "" : " class=\"" + classesString + "\"")
-                + (tag.getAttributes().isEmpty() ? "" : " class=\"" + classesString + "\"")
+                + (classes.isEmpty() ? "" : " class=\"" + makeClassString() + "\"")
+                + (id != null ? " id=\"" + id + "\"" : "")
+                + (styles.isEmpty() ? "" : makeStyleString())
+                + (tag.getAttributes().isEmpty() ? "" : makeAttributeString())
                 + (tag.isSelfTerminating() ? "/>" : ">")
                 + (tag.isLinebreakOnStartTag() ? System.lineSeparator() : "");
     }
 
     private String makeEndTag() {
         return "</" + tag.getValue() + ">" + System.lineSeparator();
+    }
+
+    private String makeAttributeString() {
+        String attributes = "";
+        if (!tag.getAttributes().isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            tag.getAttributes().keySet().forEach(ak -> {
+                sb.append(" ");
+                sb.append(ak + "=\"" + tag.getAttributes().get(ak) + "\"");
+            });
+            attributes = sb.toString();
+        }
+        return attributes;
+    }
+
+    private String makeClassString() {
+        String classString = "";
+        if (!classes.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            classes.forEach(c -> {
+                sb.append(" ");
+                sb.append(c);
+            });
+            classString = sb.toString().substring(1);
+        }
+        return classString;
+    }
+
+    private String makeStyleString() {
+        String styleString = "";
+        if (!styles.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(" style=\"");
+            styles.keySet().forEach(sk -> sb.append(sk + ":" + styles.get(sk) + ";"));
+            sb.append("\"");
+            styleString = sb.toString();
+        }
+        return styleString;
     }
 }

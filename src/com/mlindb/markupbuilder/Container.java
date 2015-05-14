@@ -162,12 +162,23 @@ public class Container extends AElement implements Html5Builder.ContainerElement
 
     @Override
     public Html5Builder.LiteralElement addAnchor(String text) {
-        return null;
+        Literal l = new Literal(Tag.A);
+        this.addChild(l);
+
+        l.addChild(l.setContent(text));
+
+        return l;
     }
 
     @Override
     public Html5Builder.LiteralElement addAnchor(String text, String className) {
-        return null;
+        Literal l = new Literal(Tag.A);
+        this.addChild(l);
+
+        l.addChild(l.setContent(text));
+        l.addClass(className);
+
+        return l;
     }
 
     @Override
@@ -177,7 +188,14 @@ public class Container extends AElement implements Html5Builder.ContainerElement
 
     @Override
     public Html5Builder.LiteralElement addAnchor(String text, String className, String id) {
-        return null;
+        Literal l = new Literal(Tag.A);
+        this.addChild(l);
+
+        l.addChild(l.setContent(text));
+        l.addClass(className);
+        l.setId(id);
+
+        return l;
     }
 
     @Override

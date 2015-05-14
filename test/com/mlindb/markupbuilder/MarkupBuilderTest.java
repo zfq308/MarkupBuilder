@@ -23,15 +23,11 @@ You should have received a copy of the GNU General Public License
 along with MarkupBuilder.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-public class LiteralTest {
-    private static final String BR = System.lineSeparator();
+public class MarkupBuilderTest {
 
     @Test
-    public void testSetContent() throws Exception {
-        Literal a = new Literal(Tag.A);
-        a.addChild(a.setContent("Link text"));
-        String content = a.build();
-        String expected = "<a href=\"\" title=\"\">Link text</a>" + BR;
-        assertEquals(expected, content);
+    public void testGetHtml5Builder() throws Exception {
+        Html5Builder builder = MarkupBuilder.getHtml5Builder();
+        assertTrue(builder instanceof Html5Builder && builder.getClass() == HtmlBuilder.class);
     }
 }
