@@ -124,4 +124,7 @@ public enum Tag {
         return selfTerminating;
     }
     public boolean isLinebreakOnStartTag() { return linebreakOnStartTag; }
+    public Map<String, String> getAttributes() {
+        return attributes;
+    }
 }

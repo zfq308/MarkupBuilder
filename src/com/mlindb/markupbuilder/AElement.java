@@ -90,16 +90,27 @@ abstract class AElement implements Html5Builder.Element {
         String classesString = null;
         if (!classes.isEmpty()) {
             StringBuilder sb = new StringBuilder();
-            classes.forEach(s -> {
+            classes.forEach(c -> {
                 sb.append(" ");
-                sb.append(s);
+                sb.append(c);
             });
             classesString = sb.toString().substring(1);
+        }
+
+        String attributesString = null;
+        if (!tag.getAttributes().isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            tag.getAttributes().keySet().forEach(ak -> {
+                sb.append(" ");
+                sb.append(ak + "=" + tag.getAttributes().get(ak));
+            });
+            attributesString = sb.toString().substring(1);
         }
 
         return "<" + tag.getValue()
                 + (id != null ? " id=\" + id + \"" : "")
                 + (classes.isEmpty() ? "" : " class=\"" + classesString + "\"")
+                + (tag.getAttributes().isEmpty() ? "" : " class=\"" + classesString + "\"")
                 + (tag.isSelfTerminating() ? "/>" : ">")
                 + (tag.isLinebreakOnStartTag() ? System.lineSeparator() : "");
     }

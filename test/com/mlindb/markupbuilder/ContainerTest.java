@@ -134,10 +134,10 @@ public class ContainerTest {
 
     @Test
     public void testNewParagraph1() throws Exception {
-        Html5Builder.ContainerElement p = instance.newParagraph("myClass");
+        Html5Builder.ContainerElement p = instance.newParagraph("My text","myClass");
 
         String noContent = p.build();
-        String expected = "<p class=\"myClass\">" + BR + "</p>" + BR;
+        String expected = "<p class=\"myClass\">My text</p>" + BR;
 
         assertEquals(expected, noContent);
     }
@@ -149,10 +149,10 @@ public class ContainerTest {
 
     @Test
     public void testNewParagraph3() throws Exception {
-        Html5Builder.ContainerElement p = instance.newParagraph("myClass", "myId");
+        Html5Builder.ContainerElement p = instance.newParagraph("My text", "myClass", "myId");
 
         String noContent = p.build();
-        String expected = "<p class=\"myClass\" id=\"myId\">" + BR + "</p>" + BR;
+        String expected = "<p class=\"myClass\" id=\"myId\">My text</p>" + BR;
 
         assertEquals(expected, noContent);
     }
@@ -174,21 +174,6 @@ public class ContainerTest {
 
     @Test
     public void testAddAnchor3() throws Exception {
-
-    }
-
-    @Test
-    public void testSetInlineStyle() throws Exception {
-
-    }
-
-    @Test
-    public void testSetId() throws Exception {
-
-    }
-
-    @Test
-    public void testSetClass() throws Exception {
 
     }
 }

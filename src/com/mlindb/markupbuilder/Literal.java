@@ -36,8 +36,7 @@ public class Literal extends AElement implements Html5Builder.LiteralElement {
     }
 
     Html5Builder.LiteralElement setContent(String content) {
-        addChild(new Literal(content));
-        return this;
+        return new Literal(content);
     }
 
     @Override

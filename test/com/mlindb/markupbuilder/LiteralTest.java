@@ -14,25 +14,10 @@ public class LiteralTest {
     @Test
     public void testSetContent() throws Exception {
         Literal a = new Literal(Tag.A);
-        a.setContent("Link text");
+        a.addChild(a.setContent("Link text"));
         String content = a.build();
         String expected = "<a href=\"\" title=\"\">Link text</a>";
         assertEquals(expected, content);
-
-    }
-
-    @Test
-    public void testSetInlineStyle() throws Exception {
-
-    }
-
-    @Test
-    public void testSetId() throws Exception {
-
-    }
-
-    @Test
-    public void testSetClass() throws Exception {
 
     }
 }
