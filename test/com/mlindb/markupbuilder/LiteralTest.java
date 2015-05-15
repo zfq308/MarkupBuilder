@@ -29,7 +29,7 @@ public class LiteralTest {
     @Test
     public void testSetContent() throws Exception {
         Literal a = new Literal(Tag.A);
-        a.addChild(a.setContent("Link text"));
+        a.addChild(a.newLiteral("Link text"));
         String content = a.build();
         String expected = "<a href=\"\" title=\"\">Link text</a>" + BR;
         assertEquals(expected, content);

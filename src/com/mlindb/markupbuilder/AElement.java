@@ -27,10 +27,10 @@ import java.util.Map;
 abstract class AElement implements Html5Builder.Element {
 
     protected final Tag tag;
-    protected String id;
-    protected final List<String> classes;
-    protected final List<Builder> children;
-    protected final Map<String, String> styles;
+    private String id;
+    private final List<String> classes;
+    private final List<Builder> children;
+    private final Map<String, String> styles;
 
     AElement(Tag tag) {
         this.tag = tag;

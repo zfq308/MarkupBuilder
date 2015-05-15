@@ -41,22 +41,38 @@ public class ContainerTest {
 
     @Test
     public void testAddHeading() throws Exception {
-        throw new Exception("Not implemented");
+        Html5Builder.LiteralElement h = instance.addHeading("My heading", HeadingLevel.H1);
+        String actual = h.build();
+        String expected = "<h1>My heading</h1>" + BR;
+
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testAddHeading1() throws Exception {
-        throw new Exception("Not implemented");
+        Html5Builder.LiteralElement h = instance.addHeading("My heading", HeadingLevel.H1, style);
+        String actual = h.build();
+        String expected = "<h1 style=\"" + STYLE + "\">My heading</h1>" + BR;
+
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testAddHeading2() throws Exception {
-        throw new Exception("Not implemented");
+        Html5Builder.LiteralElement h = instance.addHeading("My heading", HeadingLevel.H1, "myClass");
+        String actual = h.build();
+        String expected = "<h1 class=\"myClass\">My heading</h1>" + BR;
+
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testAddHeading3() throws Exception {
-        throw new Exception("Not implemented");
+        Html5Builder.LiteralElement h = instance.addHeading("My heading", HeadingLevel.H1, "myClass", "myId");
+        String actual = h.build();
+        String expected = "<h1 class=\"myClass\" id=\"myId\">My heading</h1>" + BR;
+
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -141,17 +157,29 @@ public class ContainerTest {
 
     @Test
     public void testAddBreak() throws Exception {
-        throw new Exception("Not implemented");
+        Html5Builder.LiteralElement br = instance.addBreak();
+        String actual = br.build();
+        String expected = "<br/>" + BR;
+
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testAddBreak1() throws Exception {
-        throw new Exception("Not implemented");
+        Html5Builder.LiteralElement br = instance.addBreak("myClass");
+        String actual = br.build();
+        String expected = "<br class=\"myClass\"/>" + BR;
+
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testAddBreak2() throws Exception {
-        throw new Exception("Not implemented");
+        Html5Builder.LiteralElement br = instance.addBreak(style);
+        String actual = br.build();
+        String expected = "<br style=\"" + STYLE +"\"/>" + BR;
+
+        assertEquals(expected, actual);
     }
 
     @Test

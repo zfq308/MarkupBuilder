@@ -20,10 +20,19 @@ along with MarkupBuilder.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 public enum HeadingLevel {
-    H1,
-    H2,
-    H3,
-    H4,
-    H5,
-    H6
+    H1 ("1"),
+    H2 ("2"),
+    H3 ("3"),
+    H4 ("4"),
+    H5 ("5"),
+    H6 ("6");
+
+    private final String level;
+    HeadingLevel(String level) {
+        this.level = level;
+    }
+
+    String getLevel() {
+        return this.level;
+    }
 }

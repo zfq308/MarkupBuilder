@@ -27,175 +27,215 @@ public class Container extends AElement implements Html5Builder.ContainerElement
     /**
      *
      * @param tag
-     * @param className
+     * @param classname
      * @param id
+     * @param style
      * @return
      */
-    private Html5Builder.ContainerElement newContainerElement(Tag tag, String className, String id) {
+    private Container newContainerElement(Tag tag, String classname, String id, InlineStyle style) {
         Container c = new Container(tag);
         this.addChild(c);
 
-        if (className != null)
-            c.addClass(className);
-
+        if (classname != null)
+            c.addClass(classname);
 
         if (id != null)
             c.setId(id);
 
+        if (style != null) {
+            c.setInlineStyle(style);
+        }
+
         return c;
+    }
+
+    /**
+     *
+     * @param tag
+     * @param classname
+     * @param id
+     * @param style
+     * @return
+     */
+    private Literal newLiteralElement(Tag tag, String classname, String id, InlineStyle style) {
+        Literal l = new Literal(tag);
+        this.addChild(l);
+
+        if (classname != null)
+            l.addClass(classname);
+
+        if (id != null)
+            l.setId(id);
+
+        if (style != null) {
+            l.setInlineStyle(style);
+        }
+
+        return l;
     }
 
     @Override
     public Html5Builder.LiteralElement addHeading(String text, HeadingLevel level) {
-        return null;
+        Tag tag = Tag.H;
+        tag.setHeadingLevel(level);
+
+        Literal h = newLiteralElement(tag, null, null, null);
+        h.addChild(h.newLiteral(text));
+        return h;
     }
 
     @Override
-    public Html5Builder.LiteralElement addHeading(String text, HeadingLevel level, String className) {
-        return null;
+    public Html5Builder.LiteralElement addHeading(String text, HeadingLevel level, String classname) {
+        Tag tag = Tag.H;
+        tag.setHeadingLevel(level);
+
+        Literal h = newLiteralElement(tag, classname, null, null);
+        h.addChild(h.newLiteral(text));
+        return h;
     }
 
     @Override
     public Html5Builder.LiteralElement addHeading(String text, HeadingLevel level, InlineStyle style) {
-        return null;
+        Tag tag = Tag.H;
+        tag.setHeadingLevel(level);
+
+        Literal h = newLiteralElement(tag, null, null, style);
+        h.addChild(h.newLiteral(text));
+        return h;
     }
 
     @Override
-    public Html5Builder.LiteralElement addHeading(String text, HeadingLevel level, String className, String id) {
-        return null;
+    public Html5Builder.LiteralElement addHeading(String text, HeadingLevel level, String classname, String id) {
+        Tag tag = Tag.H;
+        tag.setHeadingLevel(level);
+
+        Literal h = newLiteralElement(tag, classname, id, null);
+        h.addChild(h.newLiteral(text));
+        return h;
     }
 
     @Override
     public Html5Builder.ContainerElement newDiv() {
-        return newContainerElement(Tag.DIV, null, null);
+        return newContainerElement(Tag.DIV, null, null, null);
     }
 
     @Override
     public Html5Builder.ContainerElement newDiv(String className) {
-        return newContainerElement(Tag.DIV, className, null);
+        return newContainerElement(Tag.DIV, className, null, null);
     }
 
     @Override
     public Html5Builder.ContainerElement newDiv(InlineStyle style) {
-        return null;
+        return newContainerElement(Tag.DIV, null, null, style);
     }
 
     @Override
     public Html5Builder.ContainerElement newDiv(String className, String id) {
-        return newContainerElement(Tag.DIV, className, id);
+        return newContainerElement(Tag.DIV, className, id, null);
     }
 
     @Override
     public Html5Builder.ContainerElement newSpan() {
-        return newContainerElement(Tag.SPAN, null, null);
+        return newContainerElement(Tag.SPAN, null, null, null);
     }
 
     @Override
     public Html5Builder.ContainerElement newSpan(String className) {
-        return newContainerElement(Tag.SPAN, className, null);
+        return newContainerElement(Tag.SPAN, className, null, null);
     }
 
     @Override
     public Html5Builder.ContainerElement newSpan(InlineStyle style) {
-        return null;
+        return newContainerElement(Tag.SPAN, null, null, style);
     }
 
     @Override
     public Html5Builder.ContainerElement newSpan(String className, String id) {
-        return newContainerElement(Tag.SPAN, className, id);
+        return newContainerElement(Tag.SPAN, className, id, null);
     }
 
     @Override
     public Html5Builder.LiteralElement addBreak() {
-        return null;
+        return newLiteralElement(Tag.BR, null, null, null);
     }
 
     @Override
-    public Html5Builder.LiteralElement addBreak(String className) {
-        return null;
+    public Html5Builder.LiteralElement addBreak(String classname) {
+        return newLiteralElement(Tag.BR, classname, null, null);
     }
 
     @Override
     public Html5Builder.LiteralElement addBreak(InlineStyle style) {
-        return null;
+        return newLiteralElement(Tag.BR, null, null, style);
     }
 
     @Override
     public Html5Builder.ContainerElement newParagraph(String text) {
-        Container c = new Container(Tag.P);
-        this.addChild(c);
+        Container c = newContainerElement(Tag.P, null, null, null);
 
-        c.addChild(new Literal().setContent(text));
+        c.addChild(new Literal().newLiteral(text));
         return c;
     }
 
     @Override
-    public Html5Builder.ContainerElement newParagraph(String text, String className) {
-        Container c = new Container(Tag.P);
-        this.addChild(c);
+    public Html5Builder.ContainerElement newParagraph(String text, String classname) {
+        Container c = newContainerElement(Tag.P, classname, null, null);
 
-        c.addChild(new Literal().setContent(text));
-        c.addClass(className);
+        c.addChild(new Literal().newLiteral(text));
+
         return c;
     }
 
     @Override
     public Html5Builder.ContainerElement newParagraph(String text, InlineStyle style) {
-        Container c = new Container(Tag.P);
-        this.addChild(c);
+        Container c = newContainerElement(Tag.P, null, null, style);
+        c.addChild(new Literal().newLiteral(text));
 
-        c.addChild(new Literal().setContent(text));
-        c.setInlineStyle(style);
         return c;
     }
 
     @Override
-    public Html5Builder.ContainerElement newParagraph(String text, String className, String id) {
-        Container c = new Container(Tag.P);
-        this.addChild(c);
+    public Html5Builder.ContainerElement newParagraph(String text, String classname, String id) {
+        Container c = newContainerElement(Tag.P, classname, id, null);
+        c.addChild(new Literal().newLiteral(text));
 
-        c.addChild(new Literal().setContent(text));
-        c.addClass(className);
-        c.setId(id);
         return c;
     }
 
     @Override
     public Html5Builder.LiteralElement addAnchor(String text) {
-        Literal l = new Literal(Tag.A);
-        this.addChild(l);
+        Literal a = newLiteralElement(Tag.A, null, null, null);
 
-        l.addChild(l.setContent(text));
+        a.addChild(a.newLiteral(text));
 
-        return l;
+        return a;
     }
 
     @Override
-    public Html5Builder.LiteralElement addAnchor(String text, String className) {
-        Literal l = new Literal(Tag.A);
-        this.addChild(l);
+    public Html5Builder.LiteralElement addAnchor(String text, String classname) {
+        Literal a = newLiteralElement(Tag.A, classname, null, null);
 
-        l.addChild(l.setContent(text));
-        l.addClass(className);
+        a.addChild(a.newLiteral(text));
 
-        return l;
+        return a;
     }
 
     @Override
     public Html5Builder.LiteralElement addAnchor(String text, InlineStyle style) {
-        return null;
+        Literal a = newLiteralElement(Tag.A, null, null, style);
+
+        a.addChild(a.newLiteral(text));
+
+        return a;
     }
 
     @Override
-    public Html5Builder.LiteralElement addAnchor(String text, String className, String id) {
-        Literal l = new Literal(Tag.A);
-        this.addChild(l);
+    public Html5Builder.LiteralElement addAnchor(String text, String classname, String id) {
+        Literal a = newLiteralElement(Tag.A, classname, id, null);
 
-        l.addChild(l.setContent(text));
-        l.addClass(className);
-        l.setId(id);
+        a.addChild(a.newLiteral(text));
 
-        return l;
+        return a;
     }
 
     @Override

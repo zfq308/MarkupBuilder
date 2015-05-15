@@ -26,15 +26,17 @@ public enum Tag {
     BODY    ("body"),
     DIV     ("div"),
     P       ("p", false, false),
-    BR      ("br"),
+    BR      ("br", true),
     SPAN    ("span"),
     IMG     ("img", new String[] {"src", "alt"}, true),
+    H       ("h", false, false),
     NONE    (null);
 
     private final String tag;
     private final Map<String, String> attributes;
     private final boolean selfTerminating;
     private final boolean linebreakOnStartTag;
+    private String headingLevel;
 
     /**
      * Initializes the Tag with just a tag name.
@@ -97,8 +99,15 @@ public enum Tag {
         }
 
         this.tag = tag;
+        this.headingLevel = null;
         this.selfTerminating = selfTerminating;
         this.linebreakOnStartTag = linebreakOnStartTag;
+    }
+
+    void setHeadingLevel(HeadingLevel level) {
+        if ("h".equals(this.tag)) {
+            this.headingLevel = level.getLevel();
+        }
     }
 
     /**
@@ -117,7 +126,7 @@ public enum Tag {
      * @return
      */
     public String getValue() {
-        return tag;
+        return this.headingLevel == null ? tag : tag + headingLevel;
     }
 
     public boolean isSelfTerminating() {
